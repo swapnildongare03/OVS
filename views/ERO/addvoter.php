@@ -95,10 +95,10 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                 </nav>
-                <div class="col-12 sidebarList sidebarActive">
+                <div class="col-12 sidebarList">
                     <a href="/OVS/views/ERO/dashboard.php">Home</a>
                 </div>
-                <div class="col-12 sidebarList">
+                <div class="col-12 sidebarList sidebarActive">
                     <a href="/OVS/views/ERO/voterlist.php">Voter</a>
                 </div>
                 <div class="col-12 sidebarList">hi</div>
@@ -131,14 +131,43 @@
                 
                 <!-- Main Content -->
                 <div class="container-fluid mainContent" style="background-color: #f2f2f2;">
-                    <div class="row" >
-                        <div class="col-12">
-                            
+                    <div class="row mt-5 mb-5" >
+                        <div class="col-md-2"></div>
+                        <div class="col-md-6 card">
+                            <div class="card-header text-center">
+                                <h3>Add voter</h3>
+                            </div>
+                            <div class="card-body">
+                                <form action="" method="post">
+                                <div class="form-group">
+                                    <label for=""> Voter Name</label>
+                                    <input type="text" class="form-control" name="name" placeholder="Enter voter name">
+                                </div>
+                                <div class="form-group">
+                                    <label for=""> Voter DOB</label>
+                                    <input type="date" class="form-control" name="dob">
+                                </div>
+                                <div class="form-group">
+                                    <label for=""> Voter address</label>
+                                    <textarea name="address" id="" rows="5" class="form-control" style="resize:none"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <select class="custom-select" name="gender">
+                                    <option selected value="null">Select Gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Enter Area PIN Code" name="area">
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button class="form-control btn btn-info" name="addVoter">Add</button>
+                            </form>
+                            </div>
                         </div>
-                        <div class="col-12">hi</div>
-                        <div class="col-12">hi</div>
-                        <div class="col-12">hi</div>
-                        
                     </div>
                 </div>
                 <!-- End Main Content -->
@@ -149,6 +178,19 @@
 
 </body>
 </html>
+
+<?php 
+    if(isset($_POST['addVoter']))
+    {
+        include_once '../../Models/Ero.php';
+        $ero = new Ero();
+        if(!empty($_POST['name']) && !empty($_POST['dob']) && !empty($_POST['address']) && !empty($_POST['gender']) && !empty($_POST['area']))
+        {
+          $res =  $ero->addVoter($_POST['name'],$_POST['dob'],$_POST['address'],$_POST['gender'],$_POST['area']);
+
+        }
+    }
+?>
 
 <?php 
     }else{

@@ -26,6 +26,25 @@
       <li class="nav-item active">
         <a class="nav-link" href="/OVS">Home <span class="sr-only">(current)</span></a>
       </li>
+      <?php
+      session_start();
+        if(isset($_SESSION['userAdmin']) || isset($_SESSION['userEro']))
+        {
+      ?>
+        <li class="nav-item active">
+          <?php
+          if(isset($_SESSION['userEro']))
+          {
+            echo ' <a class="nav-link" href="/OVS/views/ERO/dashboard.php">Dashboard <span class="sr-only">(current)</span></a>';
+          }elseif(isset($_SESSION['userAdmin'])){
+            echo ' <a class="nav-link" href="/OVS/views/Admin/dashboard.php">Dashboard <span class="sr-only">(current)</span></a>';
+          }
+          ?>
+        </li>
+      <?php
+        }else{
+
+      ?> 
       <li class="nav-item active">
         <a class="nav-link" href="./views/Login/voterLogin.php">Voter Login </a>
       </li>
@@ -35,11 +54,21 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" href="./views/Login/candidateLogin.php">Candidate Login</a>
-      </li>    
+      </li>  
+      <?php
+        }
+      ?> 
     </ul>
+    <?php
+        if(!isset($_SESSION['userAdmin']) && !isset($_SESSION['userEro']))
+        {
+      ?>
     <div style="float:right">
      <a href="./views/Login/adminLogin.php" class="btn btn-outline-secondary">admin</a>
     </div>
+    <?php
+       }
+      ?>
   </div>
 </nav>
 
