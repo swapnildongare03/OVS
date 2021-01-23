@@ -70,6 +70,28 @@ class Auth{
         }
 
     }
+    public function authVoter($voterId,$password)
+    {
+        try {
+            $query = "SELECT * FROM voter WHERE voter_id = '$voterId' AND dob = '$password'";
+            $result = $this->conn->query($query);
+            $voterData = null;
+            if($result->num_rows > 0)
+            {
+                session_start();
+                while($row = $result->fetch_assoc())
+                {
+                    $voterData = $row;
+                    $_SESSION['userVoter'] = $voterData;
+                    header("location:/OVS/views/Voter/profile.php");
+                }
+            }else{
+                return "Please Check Credentials !";
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
 
     public function test(){
         return "test";

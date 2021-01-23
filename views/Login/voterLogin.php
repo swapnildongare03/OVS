@@ -38,17 +38,17 @@
                     <img class="img-fluid" src="../../assets/images/6.jpg" width="90px" alt="" style="border-radius: 100px">
                 </div>
                 <div>
-                <form action="">
+                <form action="" method="POST">
                     <div class="form-group">
-                    <label for="username">Username</label>
-                        <input type="text" class="form-control" name="" id="username">
+                    <label for="username">Voter Id</label>
+                        <input type="text" class="form-control" name="voter" id="username">
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" class="form-control" name="" id="password">
+                        <input type="password" class="form-control" name="password" id="password">
                     </div>
                     <div class="text-center">
-                        <button class="btn btn-warning form-control" >Login</button>
+                        <button class="btn btn-warning form-control" name="voterSubmit" >Login</button>
                     </div>
                 </form>
                 </div>
@@ -58,3 +58,15 @@
     </div>
 </body>
 </html>
+<?php
+    include_once '../../Models/Auth.php';
+    session_start();
+    if(isset($_POST['voterSubmit']))
+    {
+        $voter = $_POST['voter'];
+        $password = $_POST['password'];
+
+        $auth = new Auth();
+        $res = $auth->authVoter($voter,$password);
+    }
+?>
